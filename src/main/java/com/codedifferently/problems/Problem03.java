@@ -1,5 +1,9 @@
 package com.codedifferently.problems;
 
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.function.IntBinaryOperator;
+
 public class Problem03 {
     /**
      * You will be given an integer called number and an array called possibleFamilyMembers
@@ -18,6 +22,40 @@ public class Problem03 {
      * @return
      */
     public Integer[] numberFamily(Integer number, Integer[] possibleFamilyMembers){
-        return null;
+
+        HashMap<Integer, Integer> nums = new HashMap<>();
+
+        for(int i = 0; i < possibleFamilyMembers.length; i++){
+            if(nums.containsKey(possibleFamilyMembers[i])){
+                nums.put(possibleFamilyMembers[i], nums.get(possibleFamilyMembers[i]) +1);
+            }else{
+                nums.put(possibleFamilyMembers[i], 1);
+            }
+        }
+
+        List<Integer> output = new ArrayList<>();
+        int indexDec = 1;
+        if(nums.containsKey(number)){
+            output.add(number);
+        }
+        while(true){
+            if(nums.containsKey(number - indexDec)){
+                output.add(0, number-indexDec);
+            }else{
+                break;
+            }
+            indexDec++;
+        }
+        int indexInc = 1;
+        while(true){
+            if(nums.containsKey(number + indexInc)){
+                output.add(number+indexInc);
+            }else{
+                break;
+            }
+            indexInc++;
+        }
+        Integer[] array = output.toArray(new Integer[0]);
+        return array;
     }
 }
